@@ -184,11 +184,29 @@ noBtn.addEventListener("mouseover", () => {
 yesBtn.addEventListener("click", () => {
   document.querySelector(".container").style.display = "none";
   success.style.display = "block";
+    // Change success message to emotional message
+  success.innerHTML = `
+    <div style="max-width:600px;">
+      <h5 style="margin-bottom:20px;">YAYYY!!! 🐦💍💖 You made me the happiest person alive! ❤️</h5>
+      <p style="font-size:1.1rem; line-height:1.6;">
+        I know today wasn’t easy for us…<br><br>
+        Maybe we both said things we didn’t truly mean.<br>
+        And I’m really sorry for the words that hurt you —  
+        that was never my intention.<br><br>
+
+        Even when we fight,<br>
+        Even when we’re upset,<br>
+        Even when things feel heavy…<br>
+        <strong>It’s still you. It has always been you.</strong> 💕<br>
+        <strong>May Allah ease our journey together 🤲🏻</strong><br>
+      </p>
+    </div>
+  `;
   createHearts(50);
   createBirds(10);
 
   // After 3 seconds show surprise
-  setTimeout(showGiftSurprise, 3000);
+  setTimeout(showGiftSurprise, 30000);
 });
 
 function showGiftSurprise() {

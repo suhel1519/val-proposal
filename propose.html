@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Bird 🐦💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fad0c4);
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  padding: 20px;
+  position: relative;
+}
+
+/* Floating background birds */
+.bird {
+  position: absolute;
+  font-size: 20px;
+  animation: fly 10s linear infinite;
+  opacity: 0.6;
+}
+
+@keyframes fly {
+  0% { transform: translateX(-10vw) translateY(10vh); }
+  100% { transform: translateX(110vw) translateY(-20vh); }
+}
+
+.container {
+  z-index: 10;
+  max-width: 550px;
+  width: 100%;
+}
+
+h1 {
+  font-family: 'Pacifico', cursive;
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  color: white;
+  text-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+
+.subtitle {
+  margin-top: 10px;
+  color: white;
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  opacity: 0.9;
+}
+
+.buttons {
+  margin-top: 35px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+button {
+  padding: 12px 28px;
+  font-size: clamp(0.9rem, 3vw, 1.1rem);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 130px;
+}
+
+#yesBtn {
+  background: #ff4d6d;
+  color: white;
+  box-shadow: 0 5px 20px rgba(255, 77, 109, 0.4);
+}
+
+#yesBtn:hover {
+  transform: scale(1.1);
+}
+
+#noBtn {
+  background: white;
+  color: #ff4d6d;
+  /* position: absolute; */
+}
+
+.success {
+  position: absolute;
+  font-size: clamp(1.6rem, 6vw, 3rem);
+  color: white;
+  display: none;
+  animation: pop 1s ease forwards;
+  text-align: center;
+  padding: 20px;
+}
+
+@keyframes pop {
+  0% { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Floating hearts */
+.heart {
+  position: absolute;
+  animation: float 6s linear infinite;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+@keyframes float {
+  0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Will you be my Hamsafar Aliza 🐦💖</h1>
+  <!-- <p class="subtitle">
+    My little bird, you make my heart fly higher every single day ✨  
+    Will you stay in my life forever? 💕
+  </p> -->
+
+  <div class="buttons">
+    <button id="yesBtn">Yes, always 🥺💘</button>
+    <button id="noBtn">No 🙈</button>
+  </div>
+</div>
+
+<div class="success" id="successMessage">   
+    YAYYY!!! 🐦💍💖 You made me the happiest person alive!
+</div>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const success = document.getElementById("successMessage");
+
+let yesSize = 1;
+let noTexts = [
+  "Don't fly away Bird 🐦",
+  "Please stay with me 💔",
+  "Think again little bird 🥺",
+  "You can't escape me 😌",
+  "I'll build you a nest 💕"
+];
+let textIndex = 0;
+
+function moveNoButton() {
+  // Make it absolute only when it starts escaping
+  noBtn.style.position = "absolute";
+
+  const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+  const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+
+  noBtn.style.left = Math.random() * maxX + "px";
+  noBtn.style.top = Math.random() * maxY + "px";
+}
+
+noBtn.addEventListener("mouseover", moveNoButton);
+noBtn.addEventListener("click", moveNoButton);
+
+noBtn.addEventListener("mouseover", () => {
+  noBtn.innerText = noTexts[textIndex];
+  textIndex = (textIndex + 1) % noTexts.length;
+
+  yesSize += 0.12;
+  yesBtn.style.transform = `scale(${yesSize})`;
+});
+
+yesBtn.addEventListener("click", () => {
+  document.querySelector(".container").style.display = "none";
+  success.style.display = "block";
+  createHearts(50);
+  createBirds(10);
+
+  // After 3 seconds show surprise
+  setTimeout(showGiftSurprise, 3000);
+});
+
+function showGiftSurprise() {
+  const gift = document.createElement("div");
+  gift.style.position = "absolute";
+  gift.style.top = "50%";
+  gift.style.left = "50%";
+  gift.style.transform = "translate(-50%, -50%) scale(0)";
+  gift.style.background = "white";
+  gift.style.padding = "30px";
+  gift.style.borderRadius = "20px";
+  gift.style.boxShadow = "0 10px 30px rgba(0,0,0,0.2)";
+  gift.style.textAlign = "center";
+  gift.style.zIndex = "20";
+  gift.style.transition = "all 0.6s ease";
+
+  gift.innerHTML = `
+    <h2 style="color:#ff4d6d; margin-bottom:15px;">Wait… I have something for you 🎁</h2>
+    <p style="color:#555; font-size:1.1rem; margin-bottom:20px;">
+      Your real gift is not just today...  
+      It's a surprise waiting for you ❤️
+    </p>
+    <button id="openGiftBtn" 
+      style="padding:10px 25px; border:none; background:#ff4d6d; color:white; border-radius:30px; cursor:pointer;">
+      Open Your Gift 💝
+    </button>
+  `;
+
+  document.body.appendChild(gift);
+
+  // Animate popup
+  setTimeout(() => {
+    gift.style.transform = "translate(-50%, -50%) scale(1)";
+  }, 100);
+
+  // Gift reveal twist
+  document.getElementById("openGiftBtn").addEventListener("click", () => {
+    gift.innerHTML = `
+      <h2 style="color:#ff4d6d;">SURPRISEEEE ❤️</h2>
+      <p style="color:#555; font-size:1.1rem;">
+        Switch off the lights 😌
+        Close your eyes…
+        Count to 10 slowly…
+        And let the magic find you 💫🤫💝
+      </p>
+    `;
+  });
+}
+
+function createHearts(num) {
+  for (let i = 0; i < num; i++) {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+    heart.style.fontSize = (15 + Math.random() * 25) + "px";
+    document.body.appendChild(heart);
+  }
+}
+
+function createBirds(num) {
+  for (let i = 0; i < num; i++) {
+    const bird = document.createElement("div");
+    bird.classList.add("bird");
+    bird.innerHTML = "🐦";
+    bird.style.top = Math.random() * 80 + "vh";
+    bird.style.animationDuration = (6 + Math.random() * 4) + "s";
+    document.body.appendChild(bird);
+  }
+}
+</script>
+
+</body>
+</html>
